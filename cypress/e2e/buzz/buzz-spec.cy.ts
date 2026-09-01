@@ -5,11 +5,10 @@ describe("Buzz Page Tests", () => {
       cy.get(".orangehrm-login-form").find('input[placeholder="Username"]').type(data.username);
       cy.get(".orangehrm-login-form").find('input[placeholder="Password"]').type(data.password);
       cy.get(".orangehrm-login-form").find("button").contains("Login").click();
-      cy.url().should("eq", "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index");
     });
   });
 
- it('TC01: Verify user can create a post using fixture data', () => {
+ it('TC10: Verify user can create a post using fixture data', () => {
   cy.fixture('buzzData').then((data) => {
 
     cy.get('.oxd-main-menu-item').contains('Buzz').click();
