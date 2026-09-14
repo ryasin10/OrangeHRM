@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import path from "path";
 import webpackPreprocessor from "@cypress/webpack-preprocessor";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
 
@@ -14,7 +15,9 @@ export default defineConfig({
             resolve: {
               extensions: [".ts", ".js"],
               plugins: [
-                new TsconfigPathsPlugin({ configFile: "./tsconfig.json" }),
+                new TsconfigPathsPlugin({
+                  configFile: path.resolve(__dirname, "./tsconfig.json"),
+                }),
               ],
             },
             module: {
