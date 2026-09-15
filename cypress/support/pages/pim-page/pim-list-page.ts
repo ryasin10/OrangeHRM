@@ -13,8 +13,9 @@ export default class PimListPage {
     return cy.get(LOCATORS.addButton).contains("Add");
   }
 
-  static getAddEmployeeHeader() {
-    return cy.contains(LOCATORS.addEmployeeHeader);
+  static AddEmployeeHeader() {
+    cy.contains(LOCATORS.addEmployeeHeader).should("be.visible");
+    return this;
   }
 
   static interceptPimList() {

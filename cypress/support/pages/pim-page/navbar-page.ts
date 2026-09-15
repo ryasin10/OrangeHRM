@@ -4,6 +4,11 @@ const LOCATORS = {
 };
 
 export default class NavbarPage {
+  static UserDropdownVisible() {
+    cy.get(LOCATORS.userDropdown).should("be.visible");
+    return this;
+  }
+
   static getUserDropdown() {
     return cy.get(LOCATORS.userDropdown);
   }

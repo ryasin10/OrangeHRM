@@ -24,65 +24,75 @@ export default class PersonalDetailsPage {
       .find("input");
   }
 
-  static getFirstNameValue() {
-    return this.getFullNameInputs().eq(0);
+  static getFirstNameValue(firstName: string) {
+    this.getFullNameInputs().eq(0).should("have.value", firstName);
+    return this;
   }
 
-  static getMiddleNameValue() {
-    return this.getFullNameInputs().eq(1);
+  static getMiddleNameValue(middleName: string) {
+    this.getFullNameInputs().eq(1).should("have.value", middleName);
+    return this;
   }
 
-  static getLastNameValue() {
-    return this.getFullNameInputs().eq(2);
+  static getLastNameValue(lastName: string) {
+    this.getFullNameInputs().eq(2).should("have.value", lastName);
+    return this;
   }
 
-  static getEmployeeIdInput() {
-    return cy
-      .contains("label", LOCATORS.employeeIdLabel)
+  static getEmployeeIdInput(employeeId: string) {
+    cy.contains("label", LOCATORS.employeeIdLabel)
       .parents(LOCATORS.inputGroup)
-      .find("input");
+      .find("input")
+      .should("have.value", employeeId);
+    return this;
   }
 
-  static getOtherIdInput() {
-    return cy
-      .contains("label", LOCATORS.otherIdLabel)
+  static getOtherIdInput(otherId: string) {
+    cy.contains("label", LOCATORS.otherIdLabel)
       .parents(LOCATORS.inputGroup)
-      .find("input");
+      .find("input")
+      .should("have.value", otherId);
+    return this;
   }
 
-  static getDriversLicenseInput() {
-    return cy
-      .contains("label", LOCATORS.driversLicenseLabel)
+  static getDriversLicenseInput(licenseNumber: string) {
+    cy.contains("label", LOCATORS.driversLicenseLabel)
       .parents(LOCATORS.inputGroup)
-      .find("input");
+      .find("input")
+      .should("have.value", licenseNumber);
+    return this;
   }
 
-  static getLicenseExpiryInput() {
-    return cy
-      .contains("label", LOCATORS.licenseExpiryLabel)
+  static getLicenseExpiryInput(licenseExpiryDate: string) {
+    cy.contains("label", LOCATORS.licenseExpiryLabel)
       .parents(LOCATORS.inputGroup)
-      .find(LOCATORS.dateInput);
+      .find(LOCATORS.dateInput)
+      .should("have.value", licenseExpiryDate);
+    return this;
   }
 
-  static getNationalityDropdown() {
-    return cy
-      .contains("label", LOCATORS.nationalityLabel)
+  static getNationalityDropdown(nationality: string) {
+    cy.contains("label", LOCATORS.nationalityLabel)
       .parents(LOCATORS.inputGroup)
-      .find(LOCATORS.selectText);
+      .find(LOCATORS.selectText)
+      .should("contain.text", nationality);
+    return this;
   }
 
-  static getDateOfBirthInput() {
-    return cy
-      .contains("label", LOCATORS.dateOfBirthLabel)
+  static getDateOfBirthInput(dateOfBirth: string) {
+    cy.contains("label", LOCATORS.dateOfBirthLabel)
       .parents(LOCATORS.inputGroup)
-      .find(LOCATORS.dateInput);
+      .find(LOCATORS.dateInput)
+      .should("have.value", dateOfBirth);
+    return this;
   }
 
-  static getMaritalStatusDropdown() {
-    return cy
-      .contains("label", LOCATORS.maritalStatusLabel)
+  static getMaritalStatusDropdown(maritalStatus: string) {
+    cy.contains("label", LOCATORS.maritalStatusLabel)
       .parents(LOCATORS.inputGroup)
-      .find(LOCATORS.selectText);
+      .find(LOCATORS.selectText)
+      .should("contain.text", maritalStatus);
+    return this;
   }
 
   static getGenderOption(gender: string) {
@@ -116,33 +126,52 @@ export default class PersonalDetailsPage {
   }
 
   static typeOtherId(otherId: string) {
-    this.getOtherIdInput().clear().type(otherId);
+    cy.contains("label", LOCATORS.otherIdLabel)
+      .parents(LOCATORS.inputGroup)
+      .find("input")
+      .clear()
+      .type(otherId);
     return this;
   }
 
-  static typeDriversLicense(licenseNumber: string) {
-    this.getDriversLicenseInput().type(licenseNumber);
+  static typeDriversLicense(driversLicenseNumber: string) {
+    cy.contains("label", LOCATORS.driversLicenseLabel)
+      .parents(LOCATORS.inputGroup)
+      .find("input")
+      .type(driversLicenseNumber);
     return this;
   }
 
   static typeLicenseExpiry(date: string) {
-    this.getLicenseExpiryInput().type(date);
+    cy.contains("label", LOCATORS.licenseExpiryLabel)
+      .parents(LOCATORS.inputGroup)
+      .find(LOCATORS.dateInput)
+      .type(date);
     return this;
   }
 
   static selectNationality(nationality: string) {
-    this.getNationalityDropdown().click({ force: true });
+    cy.contains("label", LOCATORS.nationalityLabel)
+      .parents(LOCATORS.inputGroup)
+      .find(LOCATORS.selectText)
+      .click({ force: true });
     this.getDropdownOption(nationality).click({ force: true });
     return this;
   }
 
   static typeDateOfBirth(date: string) {
-    this.getDateOfBirthInput().type(date);
+    cy.contains("label", LOCATORS.dateOfBirthLabel)
+      .parents(LOCATORS.inputGroup)
+      .find(LOCATORS.dateInput)
+      .type(date);
     return this;
   }
 
   static selectMaritalStatus(status: string) {
-    this.getMaritalStatusDropdown().click();
+    cy.contains("label", LOCATORS.maritalStatusLabel)
+      .parents(LOCATORS.inputGroup)
+      .find(LOCATORS.selectText)
+      .click();
     this.getDropdownOption(status).click();
     return this;
   }

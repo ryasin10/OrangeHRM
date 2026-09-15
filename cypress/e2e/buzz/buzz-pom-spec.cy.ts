@@ -1,5 +1,5 @@
-import LoginPage from "@cypress/support/pom-Pages/LoginPage";
-import BuzzPage from "@cypress/support/pom-Pages/BuzzPage";
+import LoginPage from "@cypress/support/pages/login-page";
+import BuzzPage from "@cypress/support/pages/buzz-page";
 
 describe("Buzz Page Tests", () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe("Buzz Page Tests", () => {
     cy.fixture("buzzData").then((data) => {
       BuzzPage.navigateToBuzz();
       BuzzPage.createPost(data.postText);
-      BuzzPage.getPostBodyText(data.postText).should("be.visible");
+      BuzzPage.getPostBodyText(data.postText);
     });
   });
 });

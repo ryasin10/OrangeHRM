@@ -1,5 +1,5 @@
-import LoginPage from "@cypress/support/pom-Pages/LoginPage";
-import DashboardPage from "@cypress/support/pom-Pages/DashboardPage";
+import LoginPage from "@cypress/support/pages/login-page";
+import DashboardPage from "@cypress/support/pages/dashboard-page";
 
 describe("OrangeHRM Login Page Tests", () => {
   beforeEach(() => {

@@ -11,12 +11,10 @@ export default class MyInfoPage {
     cy.intercept("GET", "**/api/v2/pim/employees/*/personal-details").as(
       "myInfoDetails",
     );
-    return this;
   }
 
   static waitForMyInfoDetails() {
     cy.wait("@myInfoDetails").its("response.statusCode").should("eq", 200);
-    return this;
   }
 
   static navigateToMyInfo() {

@@ -20,7 +20,7 @@ export default class BuzzPage {
   }
 
   static getPostBodyText(text: string) {
-    return cy.contains(LOCATORS.postBodyText, text);
+    return cy.contains(LOCATORS.postBodyText, text).should("be.visible");
   }
 
   static interceptCreatePost() {
