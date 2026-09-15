@@ -8,7 +8,6 @@ const LOCATORS = {
 export default class BuzzPage {
   static navigateToBuzz() {
     cy.get(LOCATORS.buzzMenuLink).click();
-    return this;
   }
 
   static getPostInput() {
@@ -27,22 +26,18 @@ export default class BuzzPage {
     cy.intercept("POST", "**/web/index.php/api/v2/buzz/posts*").as(
       "createPost",
     );
-    return this;
   }
 
   static waitForPostCreation() {
     cy.wait("@createPost").its("response.statusCode").should("eq", 200);
-    return this;
   }
 
   static typePostContent(content: string) {
     this.getPostInput().type(content);
-    return this;
   }
 
   static submitPost() {
     this.getPostButton().click();
-    return this;
   }
 
   static createPost(content: string) {
@@ -50,6 +45,5 @@ export default class BuzzPage {
     this.typePostContent(content);
     this.submitPost();
     this.waitForPostCreation();
-    return this;
   }
 }

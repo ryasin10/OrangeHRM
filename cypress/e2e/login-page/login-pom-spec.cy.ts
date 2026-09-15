@@ -12,45 +12,45 @@ describe("OrangeHRM Login Page Tests", () => {
   });
 
   it("TC13 - Check invalid username and valid password", () => {
-    LoginPage.login("wronguser", "admin123");
-    LoginPage.getAlertMessage().should("have.text", "Invalid credentials");
+    LoginPage.login("wrongUser", "admin123");
+    LoginPage.verifyErrorMessage("Invalid credentials");
   });
 
   it("TC14 - Check valid username and invalid password", () => {
-    LoginPage.login("Admin", "wrongpass");
-    LoginPage.getAlertMessage().should("contain.text", "Invalid credentials");
+    LoginPage.login("Admin", "wrongPass");
+    LoginPage.verifyErrorMessage("Invalid credentials");
   });
 
   it("TC15 - Check invalid username and invalid password", () => {
-    LoginPage.login("wronguser", "wrongpass");
-    LoginPage.getAlertMessage().should("exist");
+    LoginPage.login("wrongUser", "wrongPass");
+    LoginPage.verifyErrorMessageIsShown();
   });
 
   it("TC16 - Check empty username and valid password", () => {
     LoginPage.enterPassword("admin123");
     LoginPage.clickLogin();
-    LoginPage.getUsernameError().should("have.text", "Required");
+    LoginPage.getUsernameError();
   });
 
   it("TC17 - Check valid username and empty password", () => {
     LoginPage.enterUsername("Admin");
     LoginPage.clickLogin();
-    LoginPage.getPasswordError().should("have.text", "Required");
+    LoginPage.getPasswordError();
   });
 
   it("TC18 - Check empty username and empty password", () => {
     LoginPage.clickLogin();
-    LoginPage.getUsernameError().should("have.text", "Required");
-    LoginPage.getPasswordError().should("have.text", "Required");
+    LoginPage.getUsernameError();
+    LoginPage.getPasswordError();
   });
 
   it("TC19 - Check password case sensitivity", () => {
     LoginPage.login("Admin", "Admin123");
-    LoginPage.getAlertMessage().should("have.text", "Invalid credentials");
+    LoginPage.verifyErrorMessage("Invalid credentials");
   });
 
   it("TC20 - Check username with leading spaces", () => {
     LoginPage.login("   Admin", "admin123");
-    LoginPage.getAlertMessage().should("have.text", "Invalid credentials");
+    LoginPage.verifyErrorMessage("Invalid credentials");
   });
 });

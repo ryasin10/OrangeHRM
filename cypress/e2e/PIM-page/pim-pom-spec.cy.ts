@@ -44,10 +44,10 @@ describe("PIM Page Test", () => {
       PersonalDetailsPage.saveDetails();
 
       NavbarPage.logout();
-      cy.url().should("include", "/auth/login");
+      NavbarPage.verifyLoggedOut();
 
       LoginPage.login(username, employee.password);
-      NavbarPage.UserDropdownVisible();
+      NavbarPage.userDropdownVisible();
 
       MyInfoPage.visitMyInfo();
 

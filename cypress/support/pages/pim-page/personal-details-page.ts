@@ -26,17 +26,14 @@ export default class PersonalDetailsPage {
 
   static getFirstNameValue(firstName: string) {
     this.getFullNameInputs().eq(0).should("have.value", firstName);
-    return this;
   }
 
   static getMiddleNameValue(middleName: string) {
     this.getFullNameInputs().eq(1).should("have.value", middleName);
-    return this;
   }
 
   static getLastNameValue(lastName: string) {
     this.getFullNameInputs().eq(2).should("have.value", lastName);
-    return this;
   }
 
   static getEmployeeIdInput(employeeId: string) {
@@ -44,7 +41,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find("input")
       .should("have.value", employeeId);
-    return this;
   }
 
   static getOtherIdInput(otherId: string) {
@@ -52,7 +48,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find("input")
       .should("have.value", otherId);
-    return this;
   }
 
   static getDriversLicenseInput(licenseNumber: string) {
@@ -60,7 +55,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find("input")
       .should("have.value", licenseNumber);
-    return this;
   }
 
   static getLicenseExpiryInput(licenseExpiryDate: string) {
@@ -68,7 +62,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.dateInput)
       .should("have.value", licenseExpiryDate);
-    return this;
   }
 
   static getNationalityDropdown(nationality: string) {
@@ -76,7 +69,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.selectText)
       .should("contain.text", nationality);
-    return this;
   }
 
   static getDateOfBirthInput(dateOfBirth: string) {
@@ -84,7 +76,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.dateInput)
       .should("have.value", dateOfBirth);
-    return this;
   }
 
   static getMaritalStatusDropdown(maritalStatus: string) {
@@ -92,7 +83,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.selectText)
       .should("contain.text", maritalStatus);
-    return this;
   }
 
   static getGenderOption(gender: string) {
@@ -115,14 +105,12 @@ export default class PersonalDetailsPage {
     cy.intercept("PUT", "**/api/v2/pim/employees/*/personal-details").as(
       "savePersonalDetails",
     );
-    return this;
   }
 
   static waitForSavePersonalDetails() {
     cy.wait("@savePersonalDetails")
       .its("response.statusCode")
       .should("eq", 200);
-    return this;
   }
 
   static typeOtherId(otherId: string) {
@@ -131,7 +119,6 @@ export default class PersonalDetailsPage {
       .find("input")
       .clear()
       .type(otherId);
-    return this;
   }
 
   static typeDriversLicense(driversLicenseNumber: string) {
@@ -139,7 +126,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find("input")
       .type(driversLicenseNumber);
-    return this;
   }
 
   static typeLicenseExpiry(date: string) {
@@ -147,7 +133,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.dateInput)
       .type(date);
-    return this;
   }
 
   static selectNationality(nationality: string) {
@@ -155,8 +140,8 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.selectText)
       .click({ force: true });
+
     this.getDropdownOption(nationality).click({ force: true });
-    return this;
   }
 
   static typeDateOfBirth(date: string) {
@@ -164,7 +149,6 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.dateInput)
       .type(date);
-    return this;
   }
 
   static selectMaritalStatus(status: string) {
@@ -172,13 +156,12 @@ export default class PersonalDetailsPage {
       .parents(LOCATORS.inputGroup)
       .find(LOCATORS.selectText)
       .click();
+
     this.getDropdownOption(status).click();
-    return this;
   }
 
   static selectGender(gender: string) {
     this.getGenderOption(gender).click({ force: true });
-    return this;
   }
 
   static fillDetails(data: {
@@ -197,13 +180,11 @@ export default class PersonalDetailsPage {
     this.typeDateOfBirth(data.dateOfBirth);
     this.selectMaritalStatus(data.maritalStatus);
     this.selectGender(data.gender);
-    return this;
   }
 
   static saveDetails() {
     this.interceptSavePersonalDetails();
     this.getSaveButton().click();
     this.waitForSavePersonalDetails();
-    return this;
   }
 }

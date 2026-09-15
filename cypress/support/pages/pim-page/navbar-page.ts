@@ -4,9 +4,8 @@ const LOCATORS = {
 };
 
 export default class NavbarPage {
-  static UserDropdownVisible() {
+  static userDropdownVisible() {
     cy.get(LOCATORS.userDropdown).should("be.visible");
-    return this;
   }
 
   static getUserDropdown() {
@@ -19,17 +18,18 @@ export default class NavbarPage {
 
   static clickUserDropdown() {
     this.getUserDropdown().click();
-    return this;
   }
 
   static clickLogout() {
     this.getLogoutLink().click();
-    return this;
   }
 
   static logout() {
     this.clickUserDropdown();
     this.clickLogout();
-    return this;
+  }
+
+  static verifyLoggedOut() {
+    cy.url().should("include", "/auth/login");
   }
 }

@@ -19,13 +19,11 @@ export default class MyInfoPage {
 
   static navigateToMyInfo() {
     this.getMyInfoMenuItem().click();
-    return this;
   }
 
   static visitMyInfo() {
     this.interceptMyInfoDetails();
     this.navigateToMyInfo();
     this.waitForMyInfoDetails();
-    return this;
   }
 }

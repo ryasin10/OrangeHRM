@@ -34,15 +34,27 @@ export default class LoginPage {
     return this;
   }
 
-  static getAlertMessage() {
-    return cy.get(LOCATORS.alertMessage);
+  static verifyErrorMessage(expectedMessage: string) {
+    cy.get(LOCATORS.alertMessage).should("have.text", expectedMessage);
+  }
+
+  static verifyErrorMessageIsShown() {
+    cy.get(LOCATORS.alertMessage).should("exist");
   }
 
   static getUsernameError() {
-    return cy.get(LOCATORS.inputGroup).eq(0).find(LOCATORS.fieldErrorMessage);
+    return cy
+      .get(LOCATORS.inputGroup)
+      .eq(0)
+      .find(LOCATORS.fieldErrorMessage)
+      .should("have.text", "Required");
   }
 
   static getPasswordError() {
-    return cy.get(LOCATORS.inputGroup).eq(1).find(LOCATORS.fieldErrorMessage);
+    return cy
+      .get(LOCATORS.inputGroup)
+      .eq(1)
+      .find(LOCATORS.fieldErrorMessage)
+      .should("have.text", "Required");
   }
 }
