@@ -29,9 +29,8 @@ export default class ApiHelper {
    * Sends a DELETE request using the given URL and query parameters.
    * @param {string} url - the API endpoint for the DELETE request
    * @param {number[]} ids - the employee IDs to delete
-   * @returns {Cypress.Chainable<number>} the delete request status
    */
-  static delete(url: string, ids: number[]): Cypress.Chainable<number> {
+  static delete(url: string, ids: number[]) {
     return cy
       .request({
         method: "DELETE",
