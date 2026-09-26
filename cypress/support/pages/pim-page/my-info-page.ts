@@ -1,29 +1,34 @@
+import WebElementHandler from "@cypress/support/helpers/web-element-handler";
+import ApiHelper from "@cypress/support/helpers/api-helpers";
+
 const LOCATORS = {
   myInfoMenuItem: ".oxd-main-menu-item",
 };
 
+/**
+ * Page Object Model for the employee My Info page.
+ */
 export default class MyInfoPage {
+  /** Returns the My Info navigation item. */
   static getMyInfoMenuItem() {
-    return cy.get(LOCATORS.myInfoMenuItem).contains("My Info");
-  }
-
-  static interceptMyInfoDetails() {
-    cy.intercept("GET", "**/api/v2/pim/employees/*/personal-details").as(
-      "myInfoDetails",
+    return WebElementHandler.getElement(LOCATORS.myInfoMenuItem).contains(
+      "My Info",
     );
   }
 
-  static waitForMyInfoDetails() {
-    cy.wait("@myInfoDetails").its("response.statusCode").should("eq", 200);
-  }
-
+  /** Opens the My Info page. */
   static navigateToMyInfo() {
     this.getMyInfoMenuItem().click();
   }
 
+  /** Opens My Info and waits for the Personal Details request. */
   static visitMyInfo() {
-    this.interceptMyInfoDetails();
+    ApiHelper.intercept(
+      "GET",
+      "**/api/v2/pim/employees/*/personal-details",
+      "myInfoDetails",
+    );
     this.navigateToMyInfo();
-    this.waitForMyInfoDetails();
+    ApiHelper.wait("myInfoDetails");
   }
 }
