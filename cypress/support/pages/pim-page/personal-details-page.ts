@@ -283,70 +283,43 @@ export default class PersonalDetailsPage {
     maritalStatus: string;
     gender: string;
   }) {
-    WebElementHandler.verifyValue(
-      this.getFullNameInputs().eq(0),
-      data.firstName,
-    );
+    this.getFullNameInputs().eq(0).should("have.value", data.firstName);
+    this.getFullNameInputs().eq(1).should("have.value", data.middleName);
+    this.getFullNameInputs().eq(2).should("have.value", data.lastName);
 
-    WebElementHandler.verifyValue(
-      this.getFullNameInputs().eq(1),
-      data.middleName,
-    );
+    CommonHelper.getInputGroup(LOCATORS.employeeIdLabel)
+      .find("input")
+      .should("have.value", data.employeeId);
 
-    WebElementHandler.verifyValue(
-      this.getFullNameInputs().eq(2),
-      data.lastName,
-    );
+    CommonHelper.getInputGroup(LOCATORS.otherIdLabel)
+      .find("input")
+      .should("have.value", data.otherId);
 
-    WebElementHandler.verifyValue(
-      CommonHelper.getInputGroup(LOCATORS.employeeIdLabel).find("input"),
-      data.employeeId,
-    );
+    CommonHelper.getInputGroup(LOCATORS.driversLicenseLabel)
+      .find("input")
+      .should("have.value", data.driversLicenseNumber);
 
-    WebElementHandler.verifyValue(
-      CommonHelper.getInputGroup(LOCATORS.otherIdLabel).find("input"),
-      data.otherId,
-    );
+    CommonHelper.getInputGroup(LOCATORS.licenseExpiryLabel)
+      .find(LOCATORS.dateInput)
+      .should("have.value", data.licenseExpiryDate);
 
-    WebElementHandler.verifyValue(
-      CommonHelper.getInputGroup(LOCATORS.driversLicenseLabel).find("input"),
-      data.driversLicenseNumber,
-    );
+    CommonHelper.getInputGroup(LOCATORS.nationalityLabel)
+      .find(LOCATORS.selectText)
+      .should("contain.text", data.nationality);
 
-    WebElementHandler.verifyValue(
-      CommonHelper.getInputGroup(LOCATORS.licenseExpiryLabel).find(
-        LOCATORS.dateInput,
-      ),
-      data.licenseExpiryDate,
-    );
+    CommonHelper.getInputGroup(LOCATORS.dateOfBirthLabel)
+      .find(LOCATORS.dateInput)
+      .should("have.value", data.dateOfBirth);
 
-    WebElementHandler.verifyText(
-      CommonHelper.getInputGroup(LOCATORS.nationalityLabel).find(
-        LOCATORS.selectText,
-      ),
-      data.nationality,
-    );
+    CommonHelper.getInputGroup(LOCATORS.maritalStatusLabel)
+      .find(LOCATORS.selectText)
+      .should("contain.text", data.maritalStatus);
 
-    WebElementHandler.verifyValue(
-      CommonHelper.getInputGroup(LOCATORS.dateOfBirthLabel).find(
-        LOCATORS.dateInput,
-      ),
-      data.dateOfBirth,
-    );
-
-    WebElementHandler.verifyText(
-      CommonHelper.getInputGroup(LOCATORS.maritalStatusLabel).find(
-        LOCATORS.selectText,
-      ),
-      data.maritalStatus,
-    );
-
-    WebElementHandler.verifyChecked(
-      CommonHelper.getInputGroup(LOCATORS.genderLabel)
-        .find(LOCATORS.radioWrapper)
-        .contains(data.gender)
-        .find("input"),
-    );
+    CommonHelper.getInputGroup(LOCATORS.genderLabel)
+      .find(LOCATORS.radioWrapper)
+      .contains(data.gender)
+      .find("input")
+      .should("be.checked");
   }
 
   /**
