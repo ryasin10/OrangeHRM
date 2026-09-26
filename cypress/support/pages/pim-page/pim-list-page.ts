@@ -1,42 +1,49 @@
+import DashboardPage from "../dashboard-page";
+import ApiHelper from "@cypress/support/helpers/api-helpers";
+
 const LOCATORS = {
   pimMenuItem: ".oxd-main-menu-item",
   addButton: ".oxd-button",
   addEmployeeHeader: "Add Employee",
 };
 
+/**
+ * Page Object Model for the PIM employee list page.
+ */
 export default class PimListPage {
+  /** Returns the PIM navigation menu item. */
   static getPimMenuItem() {
     return cy.get(LOCATORS.pimMenuItem).contains("PIM");
   }
 
+  /** Returns the Add Employee button. */
   static getAddButton() {
     return cy.get(LOCATORS.addButton).contains("Add");
   }
 
-  static AddEmployeeHeader() {
-    cy.contains(LOCATORS.addEmployeeHeader).should("be.visible");
+  /** Verifies that the Add Employee page header is visible. */
+  static verifyAddEmployeeHeader() {
+    return cy
+      .contains(LOCATORS.addEmployeeHeader, { timeout: 10000 })
+      .should("be.visible");
   }
 
-  static interceptPimList() {
-    cy.intercept("GET", "**/api/v2/pim/employees*").as("pim");
-  }
-
-  static waitForPimList() {
-    cy.wait("@pim").its("response.statusCode").should("eq", 200);
-  }
-
+  /** Opens the PIM employee list page. */
   static navigateToPim() {
+    DashboardPage.verifyLoaded();
     this.getPimMenuItem().click();
   }
 
+  /** Opens the Add Employee form. */
   static clickAddButton() {
     this.getAddButton().click();
   }
 
+  /** Opens the Add Employee form after the PIM employee request completes. */
   static goToAddEmployee() {
-    this.interceptPimList();
+    ApiHelper.intercept("GET", "**/api/v2/pim/employees*", "pim");
     this.navigateToPim();
-    this.waitForPimList();
+    ApiHelper.wait("pim");
     this.clickAddButton();
   }
 }
