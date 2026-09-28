@@ -5,10 +5,21 @@ import { LOCATORS } from "@cypress/support/helpers/constants";
  * Groups reusable web element actions and assertions.
  */
 export default class WebElementHandler {
+  /**
+   * Returns the input group that contains the given label.
+   * @param {string} label - the label text of the field
+   */
   static getInputGroup(label: string) {
     return cy.contains(LOCATORS.label, label).parents(LOCATORS.inputGroup);
   }
 
+  /**
+   * Types a value in the field identified by its label.
+   * @param {string} label - the label text of the field
+   * @param {string} value - the value to type
+   * @param {string} [selector] - the input selector inside the group
+   * @param {boolean} [clear] - whether to clear the field first
+   */
   static typeField(
     label: string,
     value: string,
@@ -20,6 +31,11 @@ export default class WebElementHandler {
     field.type(value, { force: !clear });
   }
 
+  /**
+   * Opens a dropdown by its label and selects an option.
+   * @param {string} label - the label text of the dropdown
+   * @param {string} option - the option text to select
+   */
   static selectOption(label: string, option: string) {
     this.getInputGroup(label)
       .find(LOCATORS.selectText)
@@ -57,6 +73,13 @@ export default class WebElementHandler {
     cy.get(locator).click();
   }
 
+  /**
+   * Verifies the value or text of a field identified by its label.
+   * @param {string} label - the label text of the field
+   * @param {string} selector - the selector inside the input group
+   * @param {string} value - the expected value or text
+   * @param {"have.value" | "contain.text"} [assertion] - the assertion type
+   */
   static verifyField(
     label: string,
     selector: string,
@@ -66,6 +89,12 @@ export default class WebElementHandler {
     this.getInputGroup(label).find(selector).should(assertion, value);
   }
 
+  /**
+   * Verifies that an element is visible or exists.
+   * @param {string} locator - the locator of the element
+   * @param {"be.visible" | "exist"} [assertion] - the assertion type
+   * @param {object} [options] - optional Cypress timeout/log options
+   */
   static verifyElement(
     locator: string,
     assertion: "be.visible" | "exist" = "be.visible",

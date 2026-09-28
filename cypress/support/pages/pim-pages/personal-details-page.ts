@@ -1,7 +1,12 @@
 import ApiHelper, { HTTP_METHODS } from "@cypress/support/helpers/api-helpers";
 import WebElementHandler from "@cypress/support/helpers/web-element-handler";
 import { LOCATORS, API_URLS } from "@cypress/support/helpers/constants";
+import type {
+  IPersonalDetailsData,
+  IEmployeeVerificationData,
+} from "@cypress/support/types/employee-info";
 
+/** Field labels used to locate inputs by their label text. */
 const FIELD_LABELS = {
   fullName: "Employee Full Name",
   employeeId: "Employee Id",
@@ -14,6 +19,7 @@ const FIELD_LABELS = {
   gender: "Gender",
 };
 
+/** CSS selectors used only on the Personal Details page. */
 const PAGE_LOCATORS = {
   dateInput: ".oxd-date-input input",
   radioWrapper: ".oxd-radio-wrapper",
@@ -26,34 +32,13 @@ const PAGE_LOCATORS = {
   attachmentDownloadIcon: ".oxd-table-cell-actions .bi-download",
 };
 
+/** API endpoint hit when an attachment is uploaded. */
 const ATTACHMENTS_ENDPOINT =
   "**/api/v2/pim/employees/*/screen/personal/attachments";
 
 /**
- * Personal Details fields shared between filling and verifying the form.
+ * Page Object Model for the Personal Details page.
  */
-export interface PersonalDetailsData {
-  otherId: string;
-  driversLicenseNumber: string;
-  licenseExpiryDate: string;
-  nationality: string;
-  dateOfBirth: string;
-  maritalStatus: string;
-  gender: string;
-}
-
-/**
- * Full employee data verified on the My Info / Personal Details page,
- * including the identity fields captured when the employee was created.
- */
-export interface EmployeeVerificationData extends PersonalDetailsData {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  employeeId: string;
-}
-
-/** Provides actions and assertions for the Personal Details page. */
 export default class PersonalDetailsPage {
   /**
    * Returns the input fields inside the Employee Full Name group.
@@ -64,6 +49,12 @@ export default class PersonalDetailsPage {
     );
   }
 
+  /**
+   * Verifies the first, middle and last name inputs.
+   * @param {string} firstName - the expected first name
+   * @param {string} middleName - the expected middle name
+   * @param {string} lastName - the expected last name
+   */
   static verifyFullName(
     firstName: string,
     middleName: string,
@@ -74,6 +65,13 @@ export default class PersonalDetailsPage {
     );
   }
 
+  /**
+   * Verifies the employee full name and Employee Id.
+   * @param {string} firstName - the expected first name
+   * @param {string} middleName - the expected middle name
+   * @param {string} lastName - the expected last name
+   * @param {string} employeeId - the expected employee id
+   */
   static verifyIdentity(
     firstName: string,
     middleName: string,
@@ -116,7 +114,7 @@ export default class PersonalDetailsPage {
    * @param {string} data.maritalStatus - the marital status
    * @param {string} data.gender - the gender
    */
-  static fillDetails(data: PersonalDetailsData) {
+  static fillDetails(data: IPersonalDetailsData) {
     const fields = [
       [FIELD_LABELS.otherId, data.otherId, LOCATORS.input],
       [FIELD_LABELS.driversLicense, data.driversLicenseNumber, LOCATORS.input],
@@ -161,7 +159,7 @@ export default class PersonalDetailsPage {
    * @param {string} employee.maritalStatus - the marital status
    * @param {string} employee.gender - the gender
    */
-  static verifyEmployeeInformation(employee: EmployeeVerificationData) {
+  static verifyEmployeeInformation(employee: IEmployeeVerificationData) {
     this.verifyIdentity(
       employee.firstName,
       employee.middleName,

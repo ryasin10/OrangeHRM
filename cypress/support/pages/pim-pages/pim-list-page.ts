@@ -1,8 +1,10 @@
-import DashboardPage from "../dashboard-page";
+import DashboardPage from "@cypress/support/pages/dashboard-page";
 import ApiHelper from "@cypress/support/helpers/api-helpers";
 import { LOCATORS } from "@cypress/support/helpers/constants";
 
+/** Text of the Add Employee page header. */
 const ADD_EMPLOYEE_HEADER = "Add Employee";
+/** Selector of the Add button on the PIM list page. */
 const ADD_BUTTON = "button.oxd-button--secondary";
 
 /**

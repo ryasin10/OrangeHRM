@@ -9,17 +9,17 @@ declare global {
   }
 }
 
-/** Logs in through the OrangeHRM login form. */
+/** Logs in through the OrangeHRM login form (defaults to the Admin account). */
 Cypress.Commands.add("login", (username = "Admin", password = "admin123") => {
   cy.visit("/web/index.php/auth/login");
-  cy.get(LOCATORS.usernameField).type(username);
-  cy.get(LOCATORS.passwordField).type(password);
+  cy.get(LOCATORS.usernameInput).type(username);
+  cy.get(LOCATORS.passwordInput).type(password);
   cy.get(LOCATORS.loginButton).click();
 });
 
-/** Logs out through the application navigation menu. */
+/** Logs out through the user dropdown in the navigation bar. */
 Cypress.Commands.add("logout", () => {
-  cy.get(".oxd-userdropdown-tab").click();
+  cy.get(LOCATORS.userDropdown).click();
   cy.contains("a", "Logout").click();
 });
 

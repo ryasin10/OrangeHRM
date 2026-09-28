@@ -1,6 +1,7 @@
 import ApiHelper, { HTTP_METHODS } from "@cypress/support/helpers/api-helpers";
 import { LOCATORS, API_URLS } from "@cypress/support/helpers/constants";
 import WebElementHandler from "@cypress/support/helpers/web-element-handler";
+import type { INewEmployeeData } from "@cypress/support/types/employee-info";
 
 /** CSS selectors used in the Add Employee form. */
 const SELECTORS = {
@@ -29,18 +30,9 @@ const TIMEOUTS = {
   formLoader: 10000,
 } as const;
 
-/** Data required to create a new employee. */
-export interface NewEmployeeData {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  employeeId: string;
-  username: string;
-  password: string;
-  profilePicturePath?: string;
-}
-
-/** Provides actions for the Add Employee form. */
+/**
+ * Page Object Model for the Add Employee form.
+ */
 export default class AddEmployeeDialog {
   /**
    * Uploads a profile picture to the Add Employee form.
@@ -59,7 +51,7 @@ export default class AddEmployeeDialog {
    * @param personalDetailsAlias - Alias for the intercepted personal-details request.
    */
   static createEmployee(
-    data: NewEmployeeData,
+    data: INewEmployeeData,
     createEmployeeAlias: string,
     personalDetailsAlias: string,
   ) {
