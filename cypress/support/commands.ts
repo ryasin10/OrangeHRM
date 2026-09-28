@@ -1,18 +1,20 @@
+import { LOCATORS } from "@cypress/support/helpers/constants";
+
 declare global {
   namespace Cypress {
     interface Chainable {
-      login(username: string, password: string): Chainable<void>;
+      login(username?: string, password?: string): Chainable<void>;
       logout(): Chainable<void>;
     }
   }
 }
 
 /** Logs in through the OrangeHRM login form. */
-Cypress.Commands.add("login", (username: string, password: string) => {
+Cypress.Commands.add("login", (username = "Admin", password = "admin123") => {
   cy.visit("/web/index.php/auth/login");
-  cy.get('input[name="username"]').type(username);
-  cy.get('input[name="password"]').type(password);
-  cy.get(".orangehrm-login-button").click();
+  cy.get(LOCATORS.usernameField).type(username);
+  cy.get(LOCATORS.passwordField).type(password);
+  cy.get(LOCATORS.loginButton).click();
 });
 
 /** Logs out through the application navigation menu. */
