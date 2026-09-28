@@ -1,37 +1,26 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+import { LOCATORS } from "@cypress/support/helpers/constants";
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      login(username?: string, password?: string): Chainable<void>;
+      logout(): Chainable<void>;
+    }
+  }
+}
+
+/** Logs in through the OrangeHRM login form (defaults to the Admin account). */
+Cypress.Commands.add("login", (username = "Admin", password = "admin123") => {
+  cy.visit("/web/index.php/auth/login");
+  cy.get(LOCATORS.usernameInput).type(username);
+  cy.get(LOCATORS.passwordInput).type(password);
+  cy.get(LOCATORS.loginButton).click();
+});
+
+/** Logs out through the user dropdown in the navigation bar. */
+Cypress.Commands.add("logout", () => {
+  cy.get(LOCATORS.userDropdown).click();
+  cy.contains("a", "Logout").click();
+});
+
+export {};
