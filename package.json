@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:allure": "cypress run --env allure=true",
+    "cy:run:cloud": "cypress run --record --env allure=true",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +17,9 @@
   "type": "commonjs",
   "devDependencies": {
     "@cypress/webpack-preprocessor": "^8.0.0",
+    "@shelex/cypress-allure-plugin": "^2.41.2",
+    "@types/bluebird": "^3.5.42",
+    "allure-commandline": "^2.46.1",
     "cypress": "^15.21.1",
     "ts-loader": "^9.6.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
@@ -19,6 +27,7 @@
     "webpack": "^5.110.3"
   },
   "dependencies": {
-    "@faker-js/faker": "^10.6.0"
+    "@faker-js/faker": "^10.6.0",
+    "xlsx": "^0.18.5"
   }
 }

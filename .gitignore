@@ -1,1 +1,5 @@
 node_modules/
+download/
+screenshots/
+allure-results/
+allure-report/
